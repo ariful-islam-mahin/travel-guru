@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../Home/Home';
-import './Places.css'
+import './Destination.css'
 
 const Places = () => {
     // const showPlaceDetail = false;

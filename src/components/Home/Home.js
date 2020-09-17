@@ -2,10 +2,9 @@ import React, { createContext, useEffect, useState } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
   } from "react-router-dom";
-import Places from '../Places/Places';
+import Destination from '../Destination/Destination';
 import fakeData from '../../fakeData/fakeData'
 import NoMatch from '../NoMatch/NoMatch';
 import Book from '../Book/Book';
@@ -13,7 +12,6 @@ import Login from '../Login/Login';
 import Navbar from '../Navbar/Navbar';
 import Checkout from '../Checkout/Checkout';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
-import hotelFakeData from '../../fakeData/hotelFakeData/hotelFakeData';
 
 export const UserContext = createContext();
 
@@ -21,10 +19,8 @@ const Home = () => {
     const [user, setUser] = useState({
         name:'',
         email:'',
-        password:'',
         error:'',
-        success:false,
-        isLoggedIn:false,
+        isLoggedIn:false
     })
     const [places, setPlaces] = useState([]);
     const [detail, setDetail] = useState({});
@@ -45,10 +41,10 @@ const Home = () => {
                <Navbar></Navbar>
                 <Switch>
                     <Route path='/home'>
-                        <Places></Places>
+                        <Destination></Destination>
                     </Route>
                     <Route exact path='/'>
-                        <Places></Places>
+                        <Destination></Destination>
                     </Route>
                     <Route path='/book'>
                         <Book></Book>

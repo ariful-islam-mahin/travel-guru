@@ -28,8 +28,8 @@ const Navbar = () => {
             <button className="btn mx-1 text-white">Blog</button>
             <button className="btn mx-1 text-white">Contact</button>
             {
-                user.success 
-                ? <h6>{user.name}</h6>
+                user.isLoggedIn 
+                ? <h6>{user.email}</h6>
                 : <Link to='/login' className="btn btn-warning mx-1 text-dark">Login</Link>
             }
         </div>

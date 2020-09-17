@@ -8,7 +8,7 @@ const PrivateRoute = ({ children, ...rest }) => {
         <Route
       {...rest}
       render={({ location }) =>
-        user.success ? (
+        user.isLoggedIn ? (
           children
         ) : (
           <Redirect

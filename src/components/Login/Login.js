@@ -1,4 +1,3 @@
-import { TextField } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
 import fbLogo from '../../Icon/fb.png';
 import googleLogo from '../../Icon/google.png';
@@ -8,16 +7,7 @@ import firebaseConfig from './firebase.config';
 import { UserContext } from '../Home/Home';
 import { useHistory, useLocation } from 'react-router-dom';
 
-
 firebase.initializeApp(firebaseConfig);
-export const handleLogout = () => {
-    return firebase.auth().signOut()
-    .then(res => {
-        return res
-      }).catch(function(error) {
-        // An error happened.
-      });
-}
 
 const Login = () => {
     const [newUser, setNewUser] = useState(true)
@@ -34,18 +24,11 @@ const Login = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider)
         .then(res => {
-            const {displayName, email} = res.user;
-            const signedInUser = {...user};
-            signedInUser.email = email;
-            signedInUser.name = displayName;
-            signedInUser.success = true;
-            setUser(signedInUser)
-            history.replace(from);
+            handleResponse(res)
             
           })
           .catch(error => {
-            var errorMessage = error.message;
-            console.log(errorMessage)
+            handleError(error)
           });
     }
 
@@ -54,27 +37,19 @@ const Login = () => {
         const provider = new firebase.auth.FacebookAuthProvider();
         firebase.auth().signInWithPopup(provider)
         .then(res => {
-            const {displayName, email} = res.user;
-            const signedInUser = {...user};
-            signedInUser.email = email;
-            signedInUser.name = displayName;
-            signedInUser.success = true;
-            setUser(signedInUser)
-            history.replace(from);
+            handleResponse(res)
           })
           .catch(error => {
-            var errorMessage = error.message;
-            console.log(errorMessage)
+            handleError(error)
           });
     }
 
     const handleBlur = (e) => {
         let isFormValid = true;
-        const password = e.target.name === 'password'
         if(e.target.name === 'email'){
             isFormValid = /\S+@\S+\.\S+/.test(e.target.value)
         }
-        if(password){
+        if(e.target.name === 'password'){
             const isPasswordValid = e.target.value.length > 6;
             const passwordHasNumber = /\d{1}/.test(e.target.value)
             isFormValid = isPasswordValid && passwordHasNumber
@@ -90,45 +65,23 @@ const Login = () => {
         if(newUser && user.email && user.password){
             firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
             .then(res => {
-                const {displayName, email} = res.user;
-                const signedInUser = {...user};
-                signedInUser.name = displayName;
-                signedInUser.email = email;
-                signedInUser.error = '';
-                signedInUser.success = true;
-                signedInUser.isLoggedIn = true;
-                setUser(signedInUser)
+                handleResponse(res)
                 updateUserName(user.name)
-                history.replace(from);
                 console.log(res);   
             })
-            .catch(function(error) {
-                const signedInUser = {...user};
-                signedInUser.error = error.message;
-                signedInUser.success = false;
-                setUser(signedInUser)
+            .catch(error => {
+                handleError(error)
             });
         }
 
         if(!newUser && user.email && user.password){
             firebase.auth().signInWithEmailAndPassword(user.email, user.password)
             .then(res => {
-                const {displayName, email} = res.user;
-                const signedInUser = {...user};
-                signedInUser.name = displayName;
-                signedInUser.email = email;
-                signedInUser.error = '';
-                signedInUser.success = true;
-                signedInUser.isLoggedIn = true;
-                setUser(signedInUser)
-                history.replace(from);
+                handleResponse(res)
                 console.log(res)
             })
             .catch(function(error) {
-                const signedInUser = {...user};
-                signedInUser.error = error.message;
-                signedInUser.success = false;
-                setUser(signedInUser)
+                handleError(error)
             });
         }
         e.preventDefault()
@@ -147,7 +100,24 @@ const Login = () => {
         });
     }
 
+    const handleResponse = res => {
+        const {displayName, email} = res.user;
+            const signedInUser = {
+                name:displayName,
+                email:email,
+                isLoggedIn:true
+            };
+            setUser(signedInUser);
+            history.replace(from)
+    }
     
+    const handleError = error => {
+        const signedInUser = {
+            error:error.message,
+            isLoggedIn:false
+        };
+        setUser(signedInUser)
+    }
 
     
     return (
@@ -166,7 +136,7 @@ const Login = () => {
                 <input className='btn btn-warning w-100 mb-2  rounded p-2'  type="submit" value={newUser ? 'Create an account' : 'Login'}/>
             </form>
             {
-                user.success ? <p style={{color:'green'}}>User {newUser ? 'created' : 'logged in'} successfully</p> : <p style={{color:'red'}}>{user.error}</p>
+                user.isLoggedIn ? <p style={{color:'green'}}>User {newUser ? 'created' : 'logged in'} successfully</p> : <p style={{color:'red'}}>{user.error}</p>
             }
 
             <p>{newUser ? 'Already have an account?' : "Don't have an account?"} <span style={{cursor:'pointer'}} onClick={() => setNewUser(!newUser)} className='text-warning'>{ newUser ? 'Login' : 'Create an account'}</span></p>
