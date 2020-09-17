@@ -28,6 +28,7 @@ const Home = () => {
     })
     const [places, setPlaces] = useState([]);
     const [detail, setDetail] = useState({});
+    const [showPlaceDetail, setShowPlaceDetail] = useState(false)
 
     useEffect(() => {
         setPlaces(fakeData)
@@ -35,10 +36,11 @@ const Home = () => {
 
     const handleSelectPlace = (image) => {
         const placeDetail = places.find(place => place.image ===  image);
-        setDetail(placeDetail)
+        setDetail(placeDetail);
+        setShowPlaceDetail(true)
     }
     return (
-        <UserContext.Provider value={[places, handleSelectPlace, detail, user, setUser]}>
+        <UserContext.Provider value={[places, handleSelectPlace, detail, user, setUser, showPlaceDetail]}>
             <Router>
                <Navbar></Navbar>
                 <Switch>

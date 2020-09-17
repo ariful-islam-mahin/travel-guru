@@ -4,7 +4,8 @@ import { UserContext } from '../Home/Home';
 import './Places.css'
 
 const Places = () => {
-    const [places, handleSelectPlace, detail, user, setUser] = useContext(UserContext)
+    // const showPlaceDetail = false;
+    const [places, handleSelectPlace, detail, user, setUser, showPlaceDetail] = useContext(UserContext)
     const {name, details} = detail;
     const history = useHistory();
     const handleBooking = () => {
@@ -13,9 +14,12 @@ const Places = () => {
     return (
         <div className='d-flex justify-content-center align-items-center mt-5 px-5'>
             <div className='col-md-4 '>
-                <h1>{name}</h1>
-                <p>{details}</p>
-                <button onClick={handleBooking} className='btn btn-warning'>Booking</button>
+                <h1>{ showPlaceDetail ? name : 'Welcome to Travel Guru'}</h1>
+                <h5>{ showPlaceDetail ? details : 'Click on the image to set the destination'}</h5>
+                {
+                    showPlaceDetail && 
+                    <button onClick={handleBooking} className='btn btn-warning'>Booking</button>
+                }
             </div>
             <div className='col-md-8 d-flex juctify-content-between'>
                 {
