@@ -7,7 +7,7 @@ const Checkout = () => {
     return (
         <div className='px-5'>
             <div className="col-md-6">
-                <h3 className='ml-3'>Stay in {detail.name}</h3>
+                <h3 className='ml-3 mb-4'>Stay in {detail.name}</h3>
                 <div className="d-flex justify-content-center align-items-center my-2">
                     <div className="col-md-5">
                         <img className='w-100' src='https://iili.io/2oq714.png' alt=""/>

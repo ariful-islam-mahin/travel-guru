@@ -21,7 +21,7 @@ const Navbar = () => {
                 <div className="input-group-prepend">
                   <FontAwesomeIcon style={{fontSize:'25px'}} className='text-white m-2' icon={faSearch} />
                 </div>
-                <input type="text" style={{backgroundColor:'#ffffff4d'}} className="form-control color-white" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"/>
+                <input type="text" style={{backgroundColor:'#ffffff4d'}} className="form-control color-white" placeholder="Search your destination" aria-label="Username" aria-describedby="basic-addon1"/>
             </div>
             <button className="btn mx-1 text-white">News</button>
             <Link to='/home' className="btn mx-1 text-white">Destination</Link>
@@ -29,7 +29,7 @@ const Navbar = () => {
             <button className="btn mx-1 text-white">Contact</button>
             {
                 user.success 
-                ? <button   className="btn btn-warning mx-1 text-dark">Logout</button>
+                ? <h6>{user.name}</h6>
                 : <Link to='/login' className="btn btn-warning mx-1 text-dark">Login</Link>
             }
         </div>

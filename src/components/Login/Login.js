@@ -169,13 +169,13 @@ const Login = () => {
                 user.success ? <p style={{color:'green'}}>User {newUser ? 'created' : 'logged in'} successfully</p> : <p style={{color:'red'}}>{user.error}</p>
             }
 
-            <p>{newUser ? 'Already have an account?' : "Don't have an account?"} <span onClick={() => setNewUser(!newUser)} className='text-warning'>{ newUser ? 'Login' : 'Create an account'}</span></p>
+            <p>{newUser ? 'Already have an account?' : "Don't have an account?"} <span style={{cursor:'pointer'}} onClick={() => setNewUser(!newUser)} className='text-warning'>{ newUser ? 'Login' : 'Create an account'}</span></p>
             <p>Or</p>
-            <div onClick={fbLogin} className='border border-secondary d-flex justify-content-center align-items-center py-1 w-50 mx-auto rounded-pill mb-2' >
+            <div style={{cursor:'pointer'}} onClick={fbLogin} className='border border-secondary d-flex justify-content-center align-items-center py-1 w-50 mx-auto rounded-pill mb-2' >
                 <img className='mx-2 ' style={{width:'30px'}} src={fbLogo} alt=""/>
                 <p className='mb-0  '>Continue with facebook</p>
             </div>
-            <div onClick={googleLogin} className='border border-secondary d-flex justify-content-center align-items-center py-1 w-50 mx-auto rounded-pill' >
+            <div style={{cursor:'pointer'}} onClick={googleLogin} className='border border-secondary d-flex justify-content-center align-items-center py-1 w-50 mx-auto rounded-pill' >
                 <img className='mx-2 ' style={{width:'30px'}} src={googleLogo} alt=""/>
                 <p className='mb-0 '>Continue with Google</p>
             </div>
