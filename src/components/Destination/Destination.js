@@ -1,10 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../Home/Home';
 import './Destination.css'
 
 const Places = () => {
-    // const showPlaceDetail = false;
     const [places, handleSelectPlace, detail, user, setUser, showPlaceDetail] = useContext(UserContext)
     const {name, details} = detail;
     const history = useHistory();

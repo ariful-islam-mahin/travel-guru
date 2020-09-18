@@ -44,6 +44,7 @@ const Login = () => {
           });
     }
 
+    // handle blur
     const handleBlur = (e) => {
         let isFormValid = true;
         if(e.target.name === 'email'){
@@ -61,6 +62,7 @@ const Login = () => {
         }
     }
 
+    // handle submit
     const handleSubmit = (e) => {
         if(newUser && user.email && user.password){
             firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
@@ -73,12 +75,10 @@ const Login = () => {
                 handleError(error)
             });
         }
-
         if(!newUser && user.email && user.password){
             firebase.auth().signInWithEmailAndPassword(user.email, user.password)
             .then(res => {
                 handleResponse(res)
-                console.log(res)
             })
             .catch(function(error) {
                 handleError(error)
@@ -87,6 +87,7 @@ const Login = () => {
         e.preventDefault()
     }
 
+    //update username
     const updateUserName = name => {
         const user = firebase.auth().currentUser;
         user.updateProfile({
@@ -100,6 +101,7 @@ const Login = () => {
         });
     }
 
+    //handle response
     const handleResponse = res => {
         const {displayName, email} = res.user;
             const signedInUser = {
@@ -110,7 +112,8 @@ const Login = () => {
             setUser(signedInUser);
             history.replace(from)
     }
-    
+
+    //handle error
     const handleError = error => {
         const signedInUser = {
             error:error.message,
