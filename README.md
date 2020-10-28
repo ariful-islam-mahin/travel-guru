@@ -1,3 +1,17 @@
+# Travel Guru
+
+This project's home page have 3 places. In book page have a form. In login page have many option for login. create user, facebook login and google login. And checkout page have 3 hotel.
+
+###### Features :
+* User can select a place.
+* User can book selected places.
+* User book a place by date.
+* User can create an account for login.
+* User can login their facebook id or google account.
+
+###### Technology : 
+JavaScript, React, HTML, CSS, Bootstrap, React-Router, Firebase Authentication
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
